@@ -9,7 +9,9 @@ from django.shortcuts import render
 
 
 def chat(request):
-    context = {}
+    context = {
+        'buttons': ['stupid', 'fat', 'dump']
+    }
     return render(request, 'chatbot_tutorial/chatbot.html', context)
 
 

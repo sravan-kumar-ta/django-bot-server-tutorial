@@ -1,6 +1,6 @@
+<!DOCTYPE html>
 {% load staticfiles %}
 
-<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -18,6 +18,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <base target="_blank"/>
         <title>Websockets Bot</title>
+        <style>
+            .bot-box {
+                width: 50%;
+                margin: auto;
+                margin-bottom: 20px;
+                border-radius: 10px;
+            }
+        </style>
 
     </head>
     <body>
@@ -25,7 +33,7 @@
 
         <div id="wrap" class="BotMainDiv" ng-controller="ChatCtrl">
             <!-- Begin page content -->
-            <div class="container-fluid" id="body-container" style="border-bottom: #eee 1px solid;">
+            <div class="container-fluid" id="body-container">
                
                 <div  id="sub-body-container">
                     
@@ -38,21 +46,29 @@
                 </div>
             </div>
         
-            <div class="navbar navbar-default navbar-fixed-bottom non-error">
+            <div class="navbar navbar-default navbar-fixed-bottom non-error bot-box">
                 <div class="container-fluid botAccentColor" id="bottom-box">
-                    
+                    <div class="row" style="display:flex; justify-content: space-around; margin: 10px 0;">
+                        {% for button in buttons %}
+                            <button class="btn btn-primary">{{ button|capfirst }}</button>
+                        {% endfor %}
+                    </div>
+
+
+                    {% comment %}
                     <div class="row" id="send-box">
-                        
+
                         <div id="messageToSend" contenteditable="true" class="pull-left" data-ph="Type your message..."></div>
-                        
+
 
                         <div class="pull-right send-button-div">
                             <button  id="messageSendButton" type="button" onclick="sendTextMessage()">
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                            </button>  
+                            </button>
                         </div>
 
                     </div>
+                    {% endcomment %}
                     
                 </div>
                     
