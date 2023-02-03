@@ -55,4 +55,12 @@ function sendTextMessage() {
 	$("#message").val('').focus();
     return false;   
 }
-		
+
+function sendBtnMessage(value) {
+    console.log(value)
+    message = {}
+    message.text = value;
+    message.command= 'send'
+    message.timestamp = new Date();
+    chatsock.send(JSON.stringify(message));
+}

@@ -33,7 +33,7 @@
 
         <div id="wrap" class="BotMainDiv" ng-controller="ChatCtrl">
             <!-- Begin page content -->
-            <div class="container-fluid" id="body-container">
+            <div class="container-fluid" id="body-container" style="bottom: 60px">
                
                 <div  id="sub-body-container">
                     
@@ -50,7 +50,8 @@
                 <div class="container-fluid botAccentColor" id="bottom-box">
                     <div class="row" style="display:flex; justify-content: space-around; margin: 10px 0;">
                         {% for button in buttons %}
-                            <button class="btn btn-primary">{{ button|capfirst }}</button>
+                            <input class="btn btn-primary" type="button" value="{{ button }}"
+                                   onclick="sendBtnMessage(this.value)">
                         {% endfor %}
                     </div>
 
