@@ -30,7 +30,6 @@
     </head>
     <body>
         <!-- Wrap all page content here -->
-
         <div id="wrap" class="BotMainDiv" ng-controller="ChatCtrl">
             <!-- Begin page content -->
             <div class="container-fluid" id="body-container" style="bottom: 60px">
@@ -76,8 +75,11 @@
             </div>
 
         </div>
-        
+
+        <input type="hidden" value="{{ request.user.username }}" id="username">
         <script type="text/javascript">
+            const user_username = document.getElementById("username").value;
+
             // Standard javascript code for csrf cookies
             function getCookie(name) {
                 var cookieValue = null;

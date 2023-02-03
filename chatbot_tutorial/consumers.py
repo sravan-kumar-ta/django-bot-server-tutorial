@@ -2,6 +2,7 @@ import json
 from channels import Channel
 from channels.sessions import enforce_ordering
 
+from chat_db.views import store_calls
 from .views import respond_to_websockets
 
 
@@ -11,7 +12,6 @@ def ws_connect(message):
     message.reply_channel.send({
         'accept': True
     })
-
 
 # Unpacks the JSON in the received WebSocket frame and puts it onto a channel
 # of its own with a few attributes extra so we can route it
@@ -24,6 +24,8 @@ def ws_receive(message):
     # encoding/decoding
     # for you as well as handling common errors.
     payload = json.loads(message['text'])
+    if payload.get('text'):
+        store_calls(payload)
     payload['reply_channel'] = message.content['reply_channel']
     Channel("chat.receive").send(payload)
 

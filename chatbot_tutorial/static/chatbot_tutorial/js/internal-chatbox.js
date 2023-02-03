@@ -59,6 +59,7 @@ function sendTextMessage() {
 function sendBtnMessage(value) {
     console.log(value)
     message = {}
+    message.username = user_username;
     message.text = value;
     message.command= 'send'
     message.timestamp = new Date();
