@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, FormView
 
 from chat_db.forms import CustomUserCreationForm, LoginForm
-from chat_db.models import BotCall
+from chat_db.models import BotCall, Bot
 
 
 class RegistrationView(CreateView):
@@ -40,25 +40,26 @@ class LoginView(FormView):
 
 def store_calls(payload):
     user = User.objects.get(username=payload.get('username'))
-    text = payload.get('text')
+    text = payload.get('text').lower()
+    bot = Bot.objects.get(text=text)
     try:
-        bot_call = BotCall.objects.get(user=user)
+        bot_call = BotCall.objects.get(user=user, bot=bot)
     except:
-        bot_call = BotCall.objects.create(user=user)
+        bot_call = BotCall.objects.create(user=user, bot=bot)
 
-    if text == 'Dump':
-        bot_call.dump = bot_call.dump + 1
-    elif text == 'Stupid':
-        bot_call.stupid = bot_call.stupid + 1
-    elif text == 'Fat':
-        bot_call.fat = bot_call.fat + 1
-
+    bot_call.calls = bot_call.calls + 1
     bot_call.save()
 
 
-def records_view(request):
-    calls = BotCall.objects.all()
-    return render(request, 'account/records.html', {'calls': calls, })
+def records_view(request, bot_id):
+    bot = Bot.objects.get(id=bot_id)
+
+    context = {
+        'calls': BotCall.objects.filter(bot=bot),
+        'bots': Bot.objects.filter(is_active=True),
+        'bot': bot
+    }
+    return render(request, 'account/records.html', context)
 
 
 def logout_user(request):

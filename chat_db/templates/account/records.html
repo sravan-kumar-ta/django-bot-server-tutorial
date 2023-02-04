@@ -10,9 +10,19 @@
 </div>
 <div id="wrap" class="BotMainDiv" ng-controller="ChatCtrl">
     <!-- Begin page content -->
-    <div class="container-fluid" id="body-container" style="bottom: 0; top:15%">
+    <div class="container-fluid" id="body-container" style="bottom: 0; top:10%">
 
         <div id="sub-body-container">
+
+            <div role="alert" class="alert alert-info text-center">
+                You can choose another bot calls list.
+                {% for bot in bots %}
+                <a href="{% url 'records' bot.id %}" class="btn btn-info btn-sm">{{ bot.text|capfirst }}</a>
+                {% endfor %}<br><br>
+                <strong>{{ bot.text|capfirst }}</strong> bot calls by users.
+            </div>
+
+
 
             <div id="messages-container">
                 <table class="table table-striped" style=" overflow: scroll;">
@@ -20,9 +30,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">User</th>
-                        <th scope="col">Fat</th>
-                        <th scope="col">Stupid</th>
-                        <th scope="col">Dump</th>
+                        <th scope="col">Calls</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,10 +38,8 @@
                     {% for call in calls %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ call.user }}</td>
-                        <td>{{ call.fat }}</td>
-                        <td>{{ call.stupid }}</td>
-                        <td>{{ call.dump }}</td>
+                        <td>{{ call.user }} {% if request.user == call.user %}(me){% endif %}</td>
+                        <td>{{ call.calls }}</td>
                     </tr>
                     {% endfor %}
 

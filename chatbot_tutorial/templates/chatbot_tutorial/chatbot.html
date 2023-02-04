@@ -33,7 +33,7 @@
 <div class="navbar navbar-default navbar-fixed-top non-error bot-box">
     <div class="container-fluid botAccentColor">
         <div class="row" style="display:flex; justify-content: space-around; margin: 10px 0;">
-            <a href="{% url 'records' %}" class="btn btn-info">All Records</a>
+            <a href="{% url 'records' 1 %}" class="btn btn-info">All Records</a>
             <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
         </div>
     </div>
@@ -57,8 +57,8 @@
     <div class="navbar navbar-default navbar-fixed-bottom non-error bot-box">
         <div class="container-fluid botAccentColor" id="bottom-box">
             <div class="row" style="display:flex; justify-content: space-around; margin: 10px 0;">
-                {% for button in buttons %}
-                <input class="btn btn-primary" type="button" value="{{ button|capfirst }}"
+                {% for bot in bots %}
+                <input class="btn btn-primary" type="button" value="{{ bot.text|capfirst }}"
                        onclick="sendBtnMessage(this.value)">
                 {% endfor %}
             </div>
