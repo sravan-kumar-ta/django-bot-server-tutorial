@@ -3,3 +3,12 @@ chatbot_tutorial.sublime-workspace
 *.pyc
 .DS_Store
 bot_static
+.idea
+venv
+core_folder/.env
+media
+*.log
+*.pot
+__pycache__/
+.Python
+.cache
