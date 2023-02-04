@@ -3,7 +3,9 @@
 > Django based bot server that uses django-channels for  WebSockets connection.
 > I forked this project from https://github.com/vaisaghvt/django-bot-server-tutorial
 
-### My contributions...:
+### Screen Casting  -> [Click here to View 📺](https://www.linkedin.com/posts/sravankumarta_chat-bot-source-code-httpslnkdingw9tduxw-activity-7027566697679130624-5f4t?utm_source=share&utm_medium=member_desktop)
+
+## My contributions...:
 * *Modify it instead of text-inputs to buttons*
 * *Create models in Postgres database*
 * *Store the number of calls per user*
@@ -13,7 +15,7 @@
 
 # getting started
 
-To get this running, simply run the the following 
+To get this running, simply run the following 
 
 ## Step 1: Install requirements.txt
 
