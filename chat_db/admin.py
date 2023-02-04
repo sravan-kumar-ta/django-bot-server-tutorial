@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from chat_db.models import Message
+from chat_db.models import BotCall
 
 
-class MessageAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'user', 'text', 'calls')
+class BotCallAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'user', 'stupid', 'fat', 'dump')
 
 
-admin.site.register(Message, MessageAdmin)
+admin.site.register(BotCall, BotCallAdmin)

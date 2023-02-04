@@ -3,81 +3,90 @@
 
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <link rel="shortcut icon" href="{% static 'chatbot_tutorial/favicon.ico' %}" type="image/x-icon">
-        <link rel="icon" href="{% static 'chatbot_tutorial/favicon.ico' %}" type="image/x-icon">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="{% static 'chatbot_tutorial/bootstrap/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'chatbot_tutorial/css/chat.css' %}">
-       
-        <link href="{% static 'chatbot_tutorial/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <base target="_blank"/>
-        <title>Websockets Bot</title>
-        <style>
+    <link rel="shortcut icon" href="{% static 'chatbot_tutorial/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'chatbot_tutorial/favicon.ico' %}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{% static 'chatbot_tutorial/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'chatbot_tutorial/css/chat.css' %}">
+
+    <link href="{% static 'chatbot_tutorial/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <title>Websockets Bot</title>
+    <style>
             .bot-box {
                 width: 50%;
                 margin: auto;
                 margin-bottom: 20px;
                 border-radius: 10px;
             }
-        </style>
 
-    </head>
-    <body>
-        <!-- Wrap all page content here -->
-        <div id="wrap" class="BotMainDiv" ng-controller="ChatCtrl">
-            <!-- Begin page content -->
-            <div class="container-fluid" id="body-container" style="bottom: 60px">
-               
-                <div  id="sub-body-container">
-                    
-                    <div  id="messages-container">
-                        
-                    </div>
-                    <div class="error-notification alert alert-info" style="display:none;"></div>
-                    
-                    
-                </div>
+    </style>
+
+</head>
+<body>
+<!-- Wrap all page content here -->
+<div class="navbar navbar-default navbar-fixed-top non-error bot-box">
+    <div class="container-fluid botAccentColor">
+        <div class="row" style="display:flex; justify-content: space-around; margin: 10px 0;">
+            <a href="{% url 'records' %}" class="btn btn-info">All Records</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+</div>
+
+<div id="wrap" class="BotMainDiv" ng-controller="ChatCtrl">
+    <!-- Begin page content -->
+    <div class="container-fluid" id="body-container" style="bottom: 60px">
+
+        <div id="sub-body-container">
+
+            <div id="messages-container">
+
             </div>
-        
-            <div class="navbar navbar-default navbar-fixed-bottom non-error bot-box">
-                <div class="container-fluid botAccentColor" id="bottom-box">
-                    <div class="row" style="display:flex; justify-content: space-around; margin: 10px 0;">
-                        {% for button in buttons %}
-                            <input class="btn btn-primary" type="button" value="{{ button }}"
-                                   onclick="sendBtnMessage(this.value)">
-                        {% endfor %}
-                    </div>
+            <div class="error-notification alert alert-info" style="display:none;"></div>
 
 
-                    {% comment %}
-                    <div class="row" id="send-box">
+        </div>
+    </div>
 
-                        <div id="messageToSend" contenteditable="true" class="pull-left" data-ph="Type your message..."></div>
-
-
-                        <div class="pull-right send-button-div">
-                            <button  id="messageSendButton" type="button" onclick="sendTextMessage()">
-                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                            </button>
-                        </div>
-
-                    </div>
-                    {% endcomment %}
-                    
-                </div>
-                    
+    <div class="navbar navbar-default navbar-fixed-bottom non-error bot-box">
+        <div class="container-fluid botAccentColor" id="bottom-box">
+            <div class="row" style="display:flex; justify-content: space-around; margin: 10px 0;">
+                {% for button in buttons %}
+                <input class="btn btn-primary" type="button" value="{{ button|capfirst }}"
+                       onclick="sendBtnMessage(this.value)">
+                {% endfor %}
             </div>
+
+
+            {% comment %}
+            <div class="row" id="send-box">
+
+                <div id="messageToSend" contenteditable="true" class="pull-left" data-ph="Type your message..."></div>
+
+
+                <div class="pull-right send-button-div">
+                    <button id="messageSendButton" type="button" onclick="sendTextMessage()">
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+            </div>
+            {% endcomment %}
 
         </div>
 
-        <input type="hidden" value="{{ request.user.username }}" id="username">
-        <script type="text/javascript">
+    </div>
+
+</div>
+
+<input type="hidden" value="{{ request.user.username }}" id="username">
+<script type="text/javascript">
             const user_username = document.getElementById("username").value;
 
             // Standard javascript code for csrf cookies
@@ -127,12 +136,14 @@
             }
         });
 
-        </script>
 
-        <script src="{% static 'chatbot_tutorial/js/reconnecting-websocket.min.js' %}" type="text/javascript" charset="utf-8"></script>
-        <script src="{% static 'chatbot_tutorial/js/internal-chatbox.js' %}" type="text/javascript" charset="utf-8"></script>
+</script>
 
-        <script type="text/javascript">
+<script src="{% static 'chatbot_tutorial/js/reconnecting-websocket.min.js' %}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="{% static 'chatbot_tutorial/js/internal-chatbox.js' %}" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
 
             // START WEBSOCKETS            
             var supportsWebSockets = ('WebSocket' in window || 'MozWebSocket' in window) && WebSocket;
@@ -189,7 +200,8 @@
             });
 
 
-        </script>
+
+</script>
 
 </body>
 </html>

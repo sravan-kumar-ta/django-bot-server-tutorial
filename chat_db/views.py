@@ -1,13 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.contrib.auth.views import login
-from django.shortcuts import redirect
+from django.contrib.auth.views import login, logout
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, FormView
 
 from chat_db.forms import CustomUserCreationForm, LoginForm
-from chat_db.models import Message
+from chat_db.models import BotCall
 
 
 class RegistrationView(CreateView):
@@ -27,8 +27,8 @@ class LoginView(FormView):
         user = authenticate(username=username, password=password)
 
         if user:
-            login(request=self.request, user=user)
-            messages.success(self.request, 'Successfully logged in')
+            login(request=self.request)
+            return redirect('chat')
         else:
             messages.error(self.request, "Invalid credentials..!")
             return redirect('login')
@@ -42,8 +42,25 @@ def store_calls(payload):
     user = User.objects.get(username=payload.get('username'))
     text = payload.get('text')
     try:
-        bot_msg = Message.objects.get(user=user, text=text)
+        bot_call = BotCall.objects.get(user=user)
     except:
-        bot_msg = Message.objects.create(user=user, text=text, calls=0)
-    bot_msg.calls = bot_msg.calls+1
-    bot_msg.save()
+        bot_call = BotCall.objects.create(user=user)
+
+    if text == 'Dump':
+        bot_call.dump = bot_call.dump + 1
+    elif text == 'Stupid':
+        bot_call.stupid = bot_call.stupid + 1
+    elif text == 'Fat':
+        bot_call.fat = bot_call.fat + 1
+
+    bot_call.save()
+
+
+def records_view(request):
+    calls = BotCall.objects.all()
+    return render(request, 'account/records.html', {'calls': calls, })
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')

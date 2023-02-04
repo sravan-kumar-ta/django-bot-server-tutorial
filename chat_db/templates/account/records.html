@@ -1,0 +1,52 @@
+{% extends 'account/base.html' %}
+{% block head %}
+<div class="navbar navbar-default navbar-fixed-top non-error bot-box">
+    <div class="container-fluid botAccentColor">
+        <div class="row" style="display:flex; justify-content: space-around; margin: 10px 0;">
+            <a href="{% url 'chat' %}" class="btn btn-info">Back to Bot</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+</div>
+<div id="wrap" class="BotMainDiv" ng-controller="ChatCtrl">
+    <!-- Begin page content -->
+    <div class="container-fluid" id="body-container" style="bottom: 0; top:15%">
+
+        <div id="sub-body-container">
+
+            <div id="messages-container">
+                <table class="table table-striped" style=" overflow: scroll;">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Fat</th>
+                        <th scope="col">Stupid</th>
+                        <th scope="col">Dump</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for call in calls %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ call.user }}</td>
+                        <td>{{ call.fat }}</td>
+                        <td>{{ call.stupid }}</td>
+                        <td>{{ call.dump }}</td>
+                    </tr>
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="error-notification alert alert-info" style="display:none;"></div>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
